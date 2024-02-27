@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>history</title>
+</head>
+<body>
+    <a href="index.html">Home</a>
+    <h2>History Page</h2>
+    
+
+    <!-- ------------------------------ COMMON SCRIPT -------------------------------->
+    <script>
+      const gettingSinglePageTiming = (pageName) => {
+        let path = window.location.pathname;
+        let page = path.split("/").pop();
+        page = page.split(".")[0];
+
+        pageName = !pageName
+          ? page[0].toUpperCase() + page.slice(1) + " Page"
+          : pageName;
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const start = new Date().getTime();
+          window.addEventListener("beforeunload", () => {
+            const end = new Date().getTime();
+            const totalTime = (end - start) / 1000;
+
+            localStorage.setItem(
+              pageName,
+              JSON.stringify(Math.round(totalTime))
+            );
+          });
+        });
+      };
+
+      gettingSinglePageTiming("History Page");
+    </script>
+</body>
+</html>
